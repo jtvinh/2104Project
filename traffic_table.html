@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Traffic Report with Charts</title>
+  <!-- Include DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <!-- Include Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    table { border-collapse: collapse; width: 100%; margin: 1em auto; }
+    th, td { padding: 0.5em; border: 1px solid #290707; text-align: left; }
+    th { background: #a73c3c; }
+    .chart-container { width: 80%; margin: 2em auto; }
+  </style>
+</head>  
+<body>
+  <h1 style='text-align:center;'>Traffic Report</h1>
+
+  <!-- Table -->
+  <table id="traffic-table">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>RTE_NM</th>
+        <th>Host RTE_NM</th>
+        <th>Route Label</th>
+        <th>Street Name</th>
+        <th>Class Quality Dir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>R-VA   SR00314NB</td>
+        <td>R-VA   SR00314NB</td>
+        <td>VA 314</td>
+        <td>Southgate Dr</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>R-VA   SR00412EB</td>
+        <td>R-VA   SR00412EB</td>
+        <td>VA 412</td>
+        <td>Prices Fork Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>R-VA   SR00412EB</td>
+        <td>R-VA   SR00412EB</td>
+        <td>VA 412</td>
+        <td>Prices Fork Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>R-VA   SR00412EB      RMP000.00A</td>
+        <td>R-VA   SR00412EB      RMP000.00A</td>
+        <td>VA 412  EB EXIT 0A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>R-VA   SR00412UK      RMP000.00A</td>
+        <td>R-VA   SR00412UK      RMP000.00A</td>
+        <td>VA 412  EXIT 0A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>5</th>
+        <td>R-VA   SR00412WB      RMP000.00A</td>
+        <td>R-VA   SR00412WB      RMP000.00A</td>
+        <td>VA 412  WB EXIT 0A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>6</th>
+        <td>R-VA   US00460EB</td>
+        <td>R-VA   US00460EB</td>
+        <td>US 460</td>
+        <td>Pandapas Pond Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>7</th>
+        <td>R-VA   US00460EB</td>
+        <td>R-VA   US00460EB</td>
+        <td>US 460</td>
+        <td></td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>8</th>
+        <td>R-VA   US00460EB</td>
+        <td>R-VA   US00460EB</td>
+        <td>US 460</td>
+        <td></td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>9</th>
+        <td>R-VA   US00460EB</td>
+        <td>R-VA   US00460EB</td>
+        <td>US 460</td>
+        <td></td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>10</th>
+        <td>R-VA   US00460EB      RMP115.00A</td>
+        <td>R-VA   US00460EB      RMP115.00A</td>
+        <td>US 460  EB EXIT 115A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>11</th>
+        <td>R-VA   US00460EB      RMP118.00A</td>
+        <td>R-VA   US00460EB      RMP118.00A</td>
+        <td>US 460  EB EXIT 118A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>12</th>
+        <td>R-VA   US00460EBBUS007</td>
+        <td>R-VA   US00460EBBUS007</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>13</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>14</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>15</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>16</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>17</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>18</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>19</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>20</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>21</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>22</th>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>R-VA   US00460EBBUS008</td>
+        <td>BUS US 460</td>
+        <td>Main St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>23</th>
+        <td>R-VA   US00460EBBUS008RMP006.00A</td>
+        <td>R-VA   US00460EBBUS008RMP006.00A</td>
+        <td>BUS US 460  EB EXIT 6A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>24</th>
+        <td>R-VA   US00460WB      RMP115.00B</td>
+        <td>R-VA   US00460WB      RMP115.00B</td>
+        <td>US 460  WB EXIT 115B</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>25</th>
+        <td>R-VA   US00460WB      RMP118.00A</td>
+        <td>R-VA   US00460WB      RMP118.00A</td>
+        <td>US 460  WB EXIT 118A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>26</th>
+        <td>R-VA   US00460WBBUS008RMP006.00A</td>
+        <td>R-VA   US00460WBBUS008RMP006.00A</td>
+        <td>BUS US 460  WB EXIT 6A</td>
+        <td>Ramp</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>27</th>
+        <td>S-VA060PR DAVIS ST</td>
+        <td>S-VA060PR DAVIS ST</td>
+        <td>Davis St</td>
+        <td>NaN</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>28</th>
+        <td>S-VA150PR AIRPORT RD</td>
+        <td>S-VA150PR AIRPORT RD</td>
+        <td>Airport Rd</td>
+        <td>Airport Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>29</th>
+        <td>S-VA150PR AIRPORT RD</td>
+        <td>S-VA150PR AIRPORT RD</td>
+        <td>Airport Rd</td>
+        <td>Airport Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>30</th>
+        <td>S-VA150PR CLAY ST</td>
+        <td>S-VA150PR CLAY ST</td>
+        <td>Clay St</td>
+        <td>Clay St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>31</th>
+        <td>S-VA150PR COMMERCE ST</td>
+        <td>S-VA150PR COMMERCE ST</td>
+        <td>Commerce St</td>
+        <td>Commerce St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>32</th>
+        <td>S-VA150PR COUNTRY CLUB DR SW</td>
+        <td>S-VA150PR COUNTRY CLUB DR SW</td>
+        <td>Country Club Dr Sw</td>
+        <td>Country Club Dr</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>33</th>
+        <td>S-VA150PR DAVIS ST</td>
+        <td>S-VA150PR DAVIS ST</td>
+        <td>Davis St</td>
+        <td>NaN</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>34</th>
+        <td>S-VA150PR ELLETT RD</td>
+        <td>S-VA150PR ELLETT RD</td>
+        <td>Ellett Rd</td>
+        <td>Ellett Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>35</th>
+        <td>S-VA150PR GIVENS LN</td>
+        <td>S-VA150PR GIVENS LN</td>
+        <td>Givens Ln</td>
+        <td>Givens Lane</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>36</th>
+        <td>S-VA150PR GLADE RD</td>
+        <td>S-VA150PR GLADE RD</td>
+        <td>Glade Rd</td>
+        <td>Glade Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>37</th>
+        <td>S-VA150PR GLADE RD</td>
+        <td>S-VA150PR GLADE RD</td>
+        <td>Glade Rd</td>
+        <td>Glade Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>38</th>
+        <td>S-VA150PR GLADE RD</td>
+        <td>S-VA150PR GLADE RD</td>
+        <td>Glade Rd</td>
+        <td>Glade Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>39</th>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>Harding Ave</td>
+        <td>Owen St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>40</th>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>Harding Ave</td>
+        <td>Harding Ave</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>41</th>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>S-VA150PR HARDING AVE</td>
+        <td>Harding Ave</td>
+        <td>Harding Ave</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>42</th>
+        <td>S-VA150PR MOUNT TABOR RD</td>
+        <td>S-VA150PR MOUNT TABOR RD</td>
+        <td>Mount Tabor Rd</td>
+        <td>Mt Tabor Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>43</th>
+        <td>S-VA150PR PATRICK HENRY DR</td>
+        <td>S-VA150PR PATRICK HENRY DR</td>
+        <td>Patrick Henry Dr</td>
+        <td>Patrick Henry Dr</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>44</th>
+        <td>S-VA150PR PATRICK HENRY DR</td>
+        <td>S-VA150PR PATRICK HENRY DR</td>
+        <td>Patrick Henry Dr</td>
+        <td>Patrick Henry Dr</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>45</th>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>Prices Fork Rd</td>
+        <td>Prices Fork Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>46</th>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>Prices Fork Rd</td>
+        <td>Prices Fork Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>47</th>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>S-VA150PR PRICES FORK RD</td>
+        <td>Prices Fork Rd</td>
+        <td>Prices Fork Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>48</th>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>Progress St</td>
+        <td>Progress St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>49</th>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>Progress St</td>
+        <td>Progress St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>50</th>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>S-VA150PR PROGRESS ST</td>
+        <td>Progress St</td>
+        <td>Progress St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>51</th>
+        <td>S-VA150PR RESEARCH CENTER DR</td>
+        <td>S-VA150PR RESEARCH CENTER DR</td>
+        <td>Research Center Dr</td>
+        <td>NaN</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>52</th>
+        <td>S-VA150PR ROANOKE ST E</td>
+        <td>S-VA150PR ROANOKE ST E</td>
+        <td>Roanoke St E</td>
+        <td>Roanoke St</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>53</th>
+        <td>S-VA150PR SUNRIDGE DR</td>
+        <td>S-VA150PR SUNRIDGE DR</td>
+        <td>Sunridge Dr</td>
+        <td>NaN</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>54</th>
+        <td>S-VA150PR TOMS CREEK RD</td>
+        <td>S-VA150PR TOMS CREEK RD</td>
+        <td>Toms Creek Rd</td>
+        <td>Tom's Creek Rd</td>
+        <td>NaN</td>
+      </tr>
+      <tr>
+        <th>55</th>
+        <td>S-VA150PR UNIVERSITY CITY BLVD</td>
+        <td>S-VA150PR UNIVERSITY CITY BLVD</td>
+        <td>University City Blvd</td>
+        <td>University City Blvd</td>
+        <td>NaN</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Chart for Route Label distribution -->
+  <div class="chart-container">
+    <canvas id="routeLabelChart"></canvas>
+  </div>
+
+  <!-- Include jQuery and DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    // Initialize DataTable
+    $(document).ready(function() {
+      $('#traffic-table').DataTable();
+    });
+
+    // Data for Route Label distribution (example, replace with actual data)
+    const routeLabelData = {
+      labels: ["VA 314", "VA 412", "US 460", "BUS US 460"],  // Example Route Labels
+      datasets: [{
+        label: 'Route Label Distribution',
+        data: [5, 8, 6, 4],  // Example counts for each Route Label
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    // Configuration for the Bar Chart
+    const config = {
+      type: 'bar',
+      data: routeLabelData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Render the Bar Chart
+    const routeLabelChart = new Chart(
+      document.getElementById('routeLabelChart'),
+      config
+    );
+  </script>
+
+</body>
+</html>
